@@ -1,0 +1,67 @@
+#1. Output
+#[0, 1, 2, 3]
+#[0, 1, 2, 3, 4]
+#[0, 1, 2, 3, 4]
+#[0, 1, 2, 3, 4]
+
+#2. Output
+#0
+#1
+#8
+#27
+#64
+#125
+
+
+#3. Check if e is repeted twice.
+val=raw_input("Please Enter A String ")
+cnt=0
+for i in val:
+    if i == 'e':
+        cnt+=1;
+    if cnt>=2:
+        print "True"
+        break
+if cnt < 2:
+    print "False"
+    
+
+#4. Output
+#None
+#7
+
+#5 Code for Files
+input_file=open("input.txt")
+lines=input_file.readlines()
+output_file = open("output.txt", "w")
+for i in range(len(lines)):
+    val="Line ",i," No. Word ", len(lines[i].split()),", No. Character ", len(lines[i])
+    output_file.write("{0}\n".format(val));
+output_file.close()
+input_file.close()
+
+#7
+d=8
+addr=""
+full=d/8
+for i in range(full):
+    addr=addr+"255 "
+extr=d%8
+addt=0
+for i in range(extr):
+    addt += 2**(8-i-1)  
+addr=addr+str(addt)
+if len(addr.split())<4:
+    val=4-len(addr.split())
+    for j in range(val):
+        addr += " 0"
+print addr
+
+
+
+#10
+def remove_duplicates(l):
+    return list(set(l))
+
+l="abbcdde"
+print remove_duplicates(l)
