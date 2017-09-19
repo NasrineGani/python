@@ -1,0 +1,71 @@
+import unittest
+
+#object Class with Alarm Specification
+class Alarm():
+	dic={}
+	cnt_Alarm=0	
+	
+	def add_alarm(self,title,time,repeat):
+		self.dic[self.cnt_Alarm+1] = [title, time, repeat]
+		self.cnt_Alarm += 1
+		return True;
+		
+	def getAlarmDet(self,aId):	
+		if aId in self.dic.keys():
+			return self.dic[aId]
+		else:
+			return False			
+		
+	def removeAlarm(self, aId):		
+		if aId in self.dic.keys():
+			del self.dic[aId];
+			return True
+		else:
+			return False
+			
+	def editAlarmDet(self, aId, values):		
+		if aId in self.dic.keys():
+			self.dic[aId] = values
+			return True
+		else:
+			return False
+	
+	def removeAll(self):	
+		self.dic.clear()
+		return True
+		
+	def getCnt(self):	
+		return len(self.dic)
+
+#a = Alarm()
+#a.add_alarm('Alarm1', 19.30, True)
+#a.add_alarm('Alarm2', 20.00, False)
+#a.add_alarm('Alarm3',6.00, True)
+#print a.getAlarmDet(1)
+#print a.getAlarmDet(2)
+#print a.getAlarmDet(3)
+#print a.editAlarmDet(1,['d', 'e', 'f'])
+#print a.getAlarmDet(1)
+#print a.removeAlarm(1)
+#print a.getAlarmDet(2)
+#print a.getCnt()
+#print a.removeAll()
+#print a.getCnt()
+	
+#Unit Test Class for Alarm Object
+class TestAlarm (unittest.TestCase):
+		a=Alarm()
+		a.add_alarm('Alarm1', 19.30, True)
+		def testmduextr(self):
+			self.assertEquals(self.a.add_alarm('Alarm2', 20.30, True),True)
+		def testeditAlarmDet(self):
+			self.assertEquals(self.a.editAlarmDet(1,['Alarm2', 20.30, True]),True)
+		def testgetAlarmDet(self):			
+			self.assertEquals(self.a.getAlarmDet(1),['Alarm2', 20.30, True])
+			self.assertEquals(self.a.getAlarmDet(2),False)		
+		def testgetCnt(self):
+			self.assertEquals(self.a.getCnt(),1)			
+		def testremoveAll(self):
+			self.assertEquals(self.a.removeAll(),True)
+			
+unittest.main()
