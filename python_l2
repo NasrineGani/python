@@ -1,0 +1,204 @@
+
+#1
+
+#In Mathnew folder
+
+#squareRt.py
+import math
+def sqrt(a):
+    return math.sqrt(a)
+
+#additionpy
+def add(a,b):
+    return a+b
+
+#subtraction.py
+def sub(a,b):
+    return a-b
+
+#multiplication.py
+def multi(a,b):
+    return a*b
+
+#division.py
+def div(a,b):
+    return a/b
+
+#2:
+
+input='From abc.xyz@pqr.com Mon Dec 29 01:12:15 2016'
+listVal=input.split()
+print "Email: ",listVal[1]
+domain=listVal[1].split('@')
+print "Domain:",domain[1]
+print "Time Stamp:",listVal[5]
+
+#3
+
+import math
+class Mymath:
+    def add(self,a,b):
+        print a+b    
+    def sub(self,a,b):
+        print a-b
+    def mul(self,a,b):
+        print a*b
+    def div(self,a,b):
+        print a/float(b)   
+    def sqroot(self,a):
+        print math.sqrt(a)
+#4 
+
+#a=Mymath(5,6)
+class Mymath:
+    def __init__(self, a, b):
+        self.a=a
+        self.b=b        
+    def sqroot(self):
+        print "Square Root",math.sqrt(self.a)
+    def addition(self):
+        print "Add:",self.a+self.b
+    def sub(self):
+        print "Subtract ",self.a-self.b
+    def mul(self):
+        print "Multiply",self.a*self.b
+    def div(self):
+        print "Division",self.a/float(self.b)  
+      
+#5
+import math
+
+class addition:	
+    def add(self,num1,num2):
+        a=int(num1)+int(num2)
+        print (a)    
+class subtraction:
+    def sub(self,num1,num2):
+        a=int(num1)-int(num2)
+        print (a)
+class multiplication:
+    def mul(self,num1,num2):
+        a=int(num1)*int(num2)
+        print (a)
+class division:
+    def div(self,num1,num2):
+        a=int(num1)/float(num2)
+        print (a)
+class sqroot:
+    def sqroot(self,num1):
+        a=math.sqrt(int(num1))
+        print (a)
+        
+class mathnew(addition,subtraction,multiplication,division,sqroot):
+    def __init__(self,num1,num2):
+        self.x=num1
+        self.y=num2
+        super(mathnew,self).sqroot(num1)
+        super(mathnew,self).addition(self.x,self.y)
+        super(mathnew,self).subtraction(num1,num2)
+        super(mathnew,self).multi(num1,num2)
+        super(mathnew,self).div(num1,num2)
+
+#6
+class MatrixAdd:
+    def __init__(self,a,b):
+        self.a=a
+        self.b=b
+    def add(self):
+        ans = [[0,0],[0,0]]                
+        for i in range(len(a)):  
+            for j in range(len(a[0])):  
+                ans[i][j] = a[i][j] + b[i][j]  
+        for k in ans:  
+            print k
+            
+a = [[1,1],[1,1]]           
+b = [[1,1], [1,1]]
+
+c=MatrixAdd(a,b)
+c.add()
+
+#7
+class Compare:
+    def __init__(self,a,b):
+        self.a=a
+        self.b=b
+    def __gt__(self) :
+        return self.b>self.a
+
+print "Enter 2 string: "
+s1=raw_input()
+s2=raw_input()
+l1=len(s1)
+l2=len(s2)
+x=Compare(l1,l2)
+y=x.__gt__()
+print y
+
+#8
+
+import math
+
+class Circle:  
+    def Area(self,x):
+        ans=math.pi*x*x
+        print "Area of Circle: ",ans
+    def circum(self,x):
+        ans=2*math.pi*x
+        print "Circumference:",ans
+    
+print "Enter Radius: "
+rad=input()
+cir=Circle()
+cir.Area(rad)
+cir.circum(rad)
+
+#9
+
+import math
+
+class Circle:
+    
+    def __init__(self,rad):
+        self.rad=rad
+    def Area(self):
+        ans=math.pi*rad*rad
+        print "Area of Circle: ",ans
+    def circum(self):
+        ans=2*math.pi*rad
+        print "Circumference:",ans
+    
+print "Enter Radius: "
+rad=input()
+cir=Circle(rad)
+cir.Area()
+cir.circum()
+
+#10
+
+class First:
+    def method1(self):
+        print "First Called"
+        
+class Second (First):
+    pass
+    #def method1(self):	
+        #print "Second Called"
+        
+class Third (First):
+    def method1(self):
+        print "Third Called"
+        
+class Fourth (Second,Third):
+    pass
+    #def method1(self):
+        #print "Fourth Called"
+
+f=Fourth()
+f.method1()
+ 
+
+
+
+
+
