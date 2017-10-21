@@ -1,0 +1,90 @@
+import imaplib
+import email
+
+#Email Method to trigger reply for transaction
+def send_email(recipient, subject, body):
+    import smtplib
+    user = "Your mail ID"
+    pwd = "password"
+    FROM = user
+    TO = recipient if type(recipient) is list else [recipient]
+    SUBJECT = subject
+    TEXT = body
+
+    #Message Body
+    msg= """From: %s\nTo: %s\nSubject: %s\n\n%s
+    """ % (FROM, ", ".join(TO), SUBJECT, TEXT)
+    try:
+        server = smtplib.SMTP("smtp.gmail.com", 587)
+        server.ehlo()
+        server.starttls()
+        server.login(user, pwd)
+        server.sendmail(FROM, TO, msg)
+        server.close()
+        print ("Mail Sent Successfully")
+    except:
+        print ("Mail Failure")
+
+#Main Functionality Starts
+dataValue=""
+#Configuring Receiver Inbox
+imap = imaplib.IMAP4_SSL('imap.gmail.com',993)
+usernm="Your mail ID"
+password="password"
+imap.login(usernm, password)
+typ, data1 = imap.select('INBOX')
+typ, msg_data = imap.fetch('1', '(RFC822)')
+#Reading the mail, Saving to from and subject in local variable for further processing
+for response_part in msg_data:
+    if isinstance(response_part, tuple):
+        msg = email.message_from_bytes(response_part[1])
+        to=msg['to']
+        frm=msg['from']
+        sub=msg['subject']
+
+falg=False
+#csv format as below:
+#xyz,150,xyz@gmail.com
+#lmn,150,xyz@gmail.com
+#excel path  => database as csv, path 
+with open("excel path ", "r") as f_obj:    
+    spamreader=f_obj.readlines();   
+    for index, row in enumerate(spamreader):
+        #Checks if user is registered or not and sets the flag accordingly
+        if frm in row:
+            falg=True
+            dataValue=row
+            break        
+    f_obj.close()    
+#sub="deposit 100 " or "withdraw 100" =>Transactoin Amt_Value
+valu=dataValue.split(",")   
+subVa= sub.split(" ")
+#Checking for Transaction Type, Invalid trigger the mail accordingly
+if "withdraw".upper() in sub.upper():    
+    val=int(valu[1])-int(subVa[1])
+    sub="Withdrawal was successfull"
+if "deposit".upper() in sub.upper(): 
+    val=int(valu[1])+int(subVa[1])
+    sub="Deposit was successfull"
+else: 
+    sub="Invalid operation"
+#Value calculation as per Transaction
+valu[1]=val
+calc=','.join(str(e) for e in valu)
+
+#Perform: DB update and trigger email as expected.
+if falg:
+    print ("Registered User")
+    with open("excel path", "w") as wObj:
+        for index, item in enumerate(spamreader):    
+            if (item in dataValue):
+                spamreader[index] = calc   
+        for item in spamreader:
+            wObj.write((str(item)))   
+        print ("DB updated!!")     
+        wObj.close()
+        send_email(frm,sub,"Transaction  was successfully completed")        
+else:
+    print ("Not Registered User")
+    send_email(frm,"Your Unregistered User.","Please register yourself for using this Service at our website.")
+    
